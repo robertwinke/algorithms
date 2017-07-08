@@ -7,25 +7,40 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
+
 using namespace std;
 
-bool isPrime(int number, vector<int>& primes)
+bool isPrime(int number)
 {
-  for(vector<int>::iterator it = primes.begin(); it != primes.end(); it++)
+  for(int i = 2; i <= sqrt(number); ++i)
+  {
+    if(number % i == 0 )
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+
+bool isPrime(int number, vector<int>* primes)
+{
+  for(vector<int>::iterator it = primes->begin(); it != primes->end(); it++)
   {
     if(number % *it == 0)
     {
       return false;
     }
   }
-  primes.push_back(number);
+  primes->push_back(number);
   return true;
 }
 
 int main() {
 
-  vector<int> primes;
-  primes.push_back(2);
+  vector<int>* primes = new vector<int>;
+  primes->push_back(2);
 
   int maxPrime = 0;
 
@@ -33,7 +48,7 @@ int main() {
 
   for (long int i = 3; i <= number; i += 2)
   {
-    if(isPrime(i, primes))
+    if(isPrime(i))
     {
       while(number % i == 0)
       {
@@ -44,5 +59,7 @@ int main() {
   }
 
   cout << maxPrime;
+
+  delete primes;
   return 0;
 }
