@@ -1,52 +1,46 @@
 
-
-
 //By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
 //
 //What is the 10 001st prime number?
 
 
 #include <iostream>
-#include <vector>
+#include <cmath>
+
 using namespace std;
 
-bool isPrime(int numberToCheck, vector<int>& primes)
+bool isPrime(int number)
 {
-  for(vector<int>::iterator it = primes.begin(); it != primes.end(); it++)
+  for(int i = 2; i <= sqrt(number); ++i)
   {
-    if(numberToCheck % *it == 0)
+    if(number % i == 0 )
     {
       return false;
     }
   }
-  primes.push_back(numberToCheck);
-
   return true;
 }
 
 
 //calculates a given number of primes
-void calculatePrimes(const int numberOfPrimes, vector<int>& primes)
+int calculatePrimes(const int numberOfPrimes)
 {
-  int num = 3;
+  int num = 2;
   int counter = 1;
-  while(counter < numberOfPrimes)
+  while(counter <= numberOfPrimes)
   {
-    if(isPrime(num, primes))
+    if(isPrime(num))
     {
-      ++counter;
+      ++counter; 
     }
   ++num;
   }
+  return num - 1;
 }
 
 int main() {
-  vector<int> primes;
-  primes.push_back(2);
 
-  calculatePrimes(10001, primes);
-
-  cout << primes[10000];
+  cout << calculatePrimes(10001);
 
   return 0;
 }
